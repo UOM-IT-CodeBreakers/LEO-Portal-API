@@ -6,6 +6,7 @@ const nodemailer = require("nodemailer");
 require("dotenv").config();
 
 let Member = require("../models/member");
+const { error } = require("console");
 
 //member adding route
 router.route("/add").post(async(req,res) => {
@@ -94,6 +95,23 @@ router.route("/change-password").post(async(req, res) => {
     } catch (err) {
         console.error(err.message);
         res.status(500).send("Server error");
+    }
+});
+
+//Route for search members by name
+router.route("/search").get(async(req,res) => {
+    const { Name } = req.query;
+    try{
+        const members = await Member.find({
+            name: { $regex: new RegExp(Name, "i") },
+        });
+        if(members.length === 0) {
+            return res.status(404).json({ message: "No members found." })
+        }
+        res.json(members);
+    }catch (err) {
+        console.error(err);
+        res.status(500).json({ error: err.message });
     }
 });
 

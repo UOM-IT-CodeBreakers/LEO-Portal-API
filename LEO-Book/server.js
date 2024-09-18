@@ -2,7 +2,8 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const memberRouter = require("./routes/members.js");
-const loginRouter = require("./routes/auth.js")
+const loginRouter = require("./routes/auth.js");
+const officerRouter = require("./routes/officers.js");
 const connectDB = require('./config/dbConfig.js');
 const app = express();
 
@@ -15,6 +16,7 @@ app.use(bodyParser.json());
 
 app.use("/member", memberRouter);
 app.use("/member", loginRouter);
+app.use("/officer",officerRouter);
 
 app.listen(PORT, () => {
     console.log(`Server is running on:${PORT}`)

@@ -18,9 +18,9 @@ const memberSchema = new Schema({
         type:Number,
         required: true
     },
-    distict:{
+    district:{
         type:String,
-        require:false
+        required:false
     },
     email:{
         type:String,
